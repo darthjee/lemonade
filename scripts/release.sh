@@ -6,7 +6,7 @@ function isLatestCommit() {
   if [[ $VERSION ]]; then
     return 0
   else
-    return 0
+    return 1
   fi
 }
 
