@@ -16,3 +16,6 @@ jobs:
       - run:
           name: Make Build
           command: scripts/release.sh build
+      - run:
+          name: Release
+          command: scripts/release.sh release
