@@ -24,6 +24,10 @@ case $ACTION in
     make build
     ;;
   *)
+  "release")
+    make push
+    ;;
+  *)
     echo Usage:
     echo "$0 build # builds docker"
     ;;
