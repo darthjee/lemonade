@@ -5,6 +5,8 @@ workflows:
     jobs:
       - build-and-release:
           filters:
+            tags:
+              only: /.*/
             branches:
               only:
                 - main
