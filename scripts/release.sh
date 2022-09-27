@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function isLatestCommit() {
-  VERSION=$(git tag | grep $(git describe  --tags))
+  VERSION=$(git tag | grep $(getVersion))
 
   if [[ $VERSION ]]; then
     return 0
@@ -10,8 +10,12 @@ function isLatestCommit() {
   fi
 }
 
+function getVersion() {
+  git describe --tags
+}
+
 function isAlreadyBuilt() {
-  if ( make pull ); then
+  if ( make VERSION=$(getVersion) pull ); then
     echo "Image already exists"
     exit 1
   else
@@ -33,13 +37,13 @@ case $ACTION in
     isAlreadyBuilt
     ;;
   "build")
-    make build
+    make VERSION=$(getVersion) build
     ;;
   "docker-login")
     docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     ;;
   "release")
-    make push
+    make VERSION=$(getVersion) push
     ;;
   *)
     echo Usage:
