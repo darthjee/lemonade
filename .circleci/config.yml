@@ -14,6 +14,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Docker login
+          command: scripts/release.sh docker-login
+      - run:
           name: Make Build
           command: scripts/release.sh build
       - run:

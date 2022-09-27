@@ -23,6 +23,9 @@ case $ACTION in
   "build")
     make build
     ;;
+  "docker-login")
+    docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+    ;;
   "release")
     make push
     ;;
