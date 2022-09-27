@@ -12,6 +12,7 @@ function isLatestCommit() {
 
 function isAlreadyBuilt() {
   if ( make pull ); then
+    echo "Image already exists"
     exit 1
   else
     exit 0
