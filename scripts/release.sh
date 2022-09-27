@@ -23,7 +23,6 @@ case $ACTION in
   "build")
     make build
     ;;
-  *)
   "release")
     make push
     ;;
