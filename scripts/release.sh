@@ -6,7 +6,15 @@ function isLatestCommit() {
   if [[ $VERSION ]]; then
     return 0
   else
-    return 1
+    return 0
+  fi
+}
+
+function isAlreadyBuilt() {
+  if ( make pull ); then
+    exit 1
+  else
+    exit 0
   fi
 }
 
@@ -20,6 +28,9 @@ fi
 ACTION=$1
 
 case $ACTION in
+  "check-built")
+    isAlreadyBuilt
+    ;;
   "build")
     make build
     ;;

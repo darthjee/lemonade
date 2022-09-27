@@ -8,3 +8,6 @@ build:
 push:
 	docker push $(DOCKER_NAME):$(VERSION)
 	docker push $(DOCKER_NAME):latest
+
+pull:
+	docker pull $(DOCKER_NAME):$(VERSION)

@@ -16,6 +16,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Check alreay built
+          command: scripts/release.sh check-built
+      - run:
           name: Docker login
           command: scripts/release.sh docker-login
       - run:
