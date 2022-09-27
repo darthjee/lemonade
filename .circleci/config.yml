@@ -1,0 +1,18 @@
+version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - build-and-release:
+          filters:
+            branches:
+              only:
+                - main
+jobs:
+  build-and-release:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Make Build
+          command: scripts/release.sh build
