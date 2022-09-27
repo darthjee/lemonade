@@ -21,7 +21,7 @@ ACTION=$1
 
 case $ACTION in
   "build")
-    make PROJECT=production_plague_inc build
+    make build
     ;;
   *)
     echo Usage:
