@@ -10,6 +10,8 @@ gem 'sinatra',   '3.0.1'
 gem 'sinclair',  '1.8.0'
 
 group :development, :test do
+  gem 'pry',        '0.14.1'
+  gem 'pry-nav',    '1.0.0'
   gem 'simplecov',  '0.21.2'
 end
 
