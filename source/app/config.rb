@@ -5,7 +5,7 @@ class Config
   include Arstotzka
 
   def self.load_file(file_path)
-    new(YAML.load_file(file_path))
+    new(ConfigLoader.new(file_path).load)
   end
 
   attr_reader :json

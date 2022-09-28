@@ -13,6 +13,7 @@ require 'application'
 require 'endpoint'
 require 'route'
 require 'config'
+require 'config_loader'
 
 set :port, 80
 set :bind, '0.0.0.0'
