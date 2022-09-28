@@ -3,6 +3,8 @@
 class Endpoint
   attr_reader :route
 
+  delegate :path, :content, :http_method, to: :route
+
   def self.build(*args)
     new(*args).build
   end
@@ -17,8 +19,4 @@ class Endpoint
       content
     end
   end
-
-  private
-
-  delegate :path, :content, :http_method, to: :route
 end
