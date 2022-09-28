@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Application contains the application definition
+#
+# This loads config file into memory and creates the routes
 module Application
   class << self
     def start

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Route configuration
 class Route
   include Arstotzka
 

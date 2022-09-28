@@ -5,13 +5,3 @@
 # one by one as the offenses are removed from the code base.
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
-
-# Offense count: 4
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'app/application.rb'
-    - 'app/config.rb'
-    - 'app/endpoint.rb'
-    - 'app/route.rb'
