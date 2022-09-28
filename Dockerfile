@@ -1,4 +1,4 @@
-FROM darthjee/production_ruby_270:1.1.1 as base
+FROM darthjee/production_ruby_270:1.1.0 as base
 FROM darthjee/scripts:0.3.1 as scripts
 
 ######################################
