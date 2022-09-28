@@ -8,7 +8,7 @@ describe Application, type: :controller do
   describe '.start' do
     context 'when the config file exists' do
       let(:app) { Sinatra::Application }
-      let(:path) { "/test_path" }
+      let(:path) { '/test_path' }
       let(:config_path) do
         fixture_file_path('test_application_routes.yml')
       end
@@ -29,7 +29,7 @@ describe Application, type: :controller do
         "#{config_folder}/#{config_file}"
       end
 
-      after  { FileUtils.rm_rf(config_folder) }
+      after { FileUtils.rm_rf(config_folder) }
 
       it 'creates a config file' do
         expect { described_class.start }
