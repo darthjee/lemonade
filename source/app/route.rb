@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Route configuration
 class Route
   include Arstotzka
 
@@ -5,7 +8,7 @@ class Route
   expose :path
   expose :content
   expose :http_method, type: :symbol, default: :get
-  
+
   def initialize(json = {})
     @json = json
   end

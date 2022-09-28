@@ -1,5 +1,12 @@
+# frozen_string_literal: true
+
+# Class responsible for building endpoints from +Route+ configs
+#
+# The routes are then sent to Sinatra for building
 class Endpoint
   attr_reader :route
+
+  delegate :path, :content, :http_method, to: :route
 
   def self.build(*args)
     new(*args).build
@@ -15,8 +22,4 @@ class Endpoint
       content
     end
   end
-
-  private
-
-  delegate :path, :content, :http_method, to: :route
 end

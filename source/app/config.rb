@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Loads and stores config from config folder
 class Config
   include Arstotzka
 
@@ -7,7 +10,7 @@ class Config
 
   attr_reader :json
   expose :routes, klass: ::Route
-  
+
   def initialize(json = {})
     @json = json
   end
