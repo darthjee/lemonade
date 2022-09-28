@@ -1,0 +1,3 @@
+routes:
+  - path: '/test_path'
+    content: 'test_content'
