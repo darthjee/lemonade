@@ -8,6 +8,8 @@ require 'shoulda-matchers'
 require 'rack/test'
 require_relative '../app'
 
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -83,6 +85,7 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
   config.include Rack::Test::Methods, type: :controller
+  config.include FixtureLoader
 end
 
 RSpec::Matchers.define_negated_matcher :not_raise_error, :raise_error
