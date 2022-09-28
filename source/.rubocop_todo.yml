@@ -21,9 +21,3 @@ Style/Documentation:
     - 'app/config.rb'
     - 'app/endpoint.rb'
     - 'app/route.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'app.rb'

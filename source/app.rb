@@ -5,7 +5,7 @@ require 'yaml'
 require 'sinclair'
 require 'arstotzka'
 
-root_path = File.expand_path('..', __FILE__)
+root_path = File.expand_path(__dir__)
 $LOAD_PATH.unshift([root_path, 'app'].join('/'))
 
 require 'application'
