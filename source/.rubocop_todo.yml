@@ -27,15 +27,3 @@ Style/Documentation:
 Style/ExpandPathArguments:
   Exclude:
     - 'app.rb'
-
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, always_true, never
-Style/FrozenStringLiteralComment:
-  Exclude:
-    - 'app.rb'
-    - 'app/application.rb'
-    - 'app/config.rb'
-    - 'app/endpoint.rb'
-    - 'app/route.rb'
