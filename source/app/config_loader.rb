@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConfigLoader
   SAMPLE_CONFIG = 'resource/routes.yml'
 
