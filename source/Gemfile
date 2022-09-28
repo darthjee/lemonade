@@ -5,6 +5,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.0'
 
-gem 'sinatra'
-gem 'sinclair'
-gem 'arstotzka'
+gem 'sinatra', '3.0.1'
+gem 'sinclair', '1.8.0'
+gem 'arstotzka', '1.6.2'
