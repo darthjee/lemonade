@@ -8,3 +8,7 @@ ruby '2.7.0'
 gem 'sinatra', '3.0.1'
 gem 'sinclair', '1.8.0'
 gem 'arstotzka', '1.6.2'
+
+group :development do
+  gem 'rubocop',       '0.80.1'
+end
