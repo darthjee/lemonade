@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# rubocop:disable Style/Semicolon
 describe Application, type: :controller do
   before { described_class.config_file_path(config_path) }
 
@@ -40,10 +41,11 @@ describe Application, type: :controller do
 
       it 'creates a config folder' do
         expect { described_class.start }
-          .to change { Dir[config_path] }
+          .to change { Dir[config_folder] }
           .from([])
-          .to([config_path])
+          .to([config_folder])
       end
     end
   end
 end
+# rubocop:enable Style/Semicolon
