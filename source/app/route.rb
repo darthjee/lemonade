@@ -5,7 +5,7 @@ class Route
   expose :path
   expose :content
   expose :http_method, type: :symbol, default: :get
-  
+
   def initialize(json = {})
     @json = json
   end

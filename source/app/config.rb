@@ -7,7 +7,7 @@ class Config
 
   attr_reader :json
   expose :routes, klass: ::Route
-  
+
   def initialize(json = {})
     @json = json
   end
