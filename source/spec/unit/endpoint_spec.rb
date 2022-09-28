@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# rubocop:disable Style/Semicolon
 describe Endpoint, type: :controller do
   let(:app) { Sinatra::Application }
 
@@ -24,3 +25,4 @@ describe Endpoint, type: :controller do
     end
   end
 end
+# rubocop:enable Style/Semicolon

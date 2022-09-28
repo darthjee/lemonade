@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FixtureLoader
   def fixture_file_path(path)
     [root_fixture_path, path].join('/').gsub('//', '/')
@@ -6,7 +8,7 @@ module FixtureLoader
   def root_fixture_path
     @root_path = [
       File.expand_path(__dir__),
-      'fixtures',
+      'fixtures'
     ].join('/').gsub('//', '/')
   end
 end
