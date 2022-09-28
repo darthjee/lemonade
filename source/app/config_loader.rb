@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# Class responsible for loading the raw config
+#
+# When loading, if the config file does not exist, it
+# is created as a copy from 'resource/routes.yml'
 class ConfigLoader
   SAMPLE_CONFIG = 'resource/routes.yml'
 
