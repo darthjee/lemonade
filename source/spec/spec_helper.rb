@@ -3,13 +3,10 @@
 require 'simplecov'
 SimpleCov.start 'rails'
 
-require File.expand_path('../config/environment', __dir__)
 require 'pry-nav'
 require 'shoulda-matchers'
 
 RSpec.configure do |config|
-  config.infer_spec_type_from_file_location!
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -91,8 +88,6 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
-
-  config.include(RSpec::Matchers::Custom)
 end
 
 RSpec::Matchers.define_negated_matcher :not_raise_error, :raise_error
