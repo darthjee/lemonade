@@ -10,5 +10,15 @@ gem 'sinatra',   '3.0.1'
 gem 'sinclair',  '1.8.0'
 
 group :development do
-  gem 'rubocop', '0.80.1'
+  gem 'rubocop',       '0.80.1'
+  gem 'rubocop-rspec', '1.38.1'
+end
+
+group :test do
+  gem 'rspec',                     '3.11.0'
+  gem 'rspec-collection_matchers', '1.2.0'
+  gem 'rspec-core',                '3.11.0'
+  gem 'rspec-expectations',        '3.11.0'
+  gem 'rspec-mocks',               '3.11.1'
+  gem 'rspec-support',             '3.11.0'
 end
