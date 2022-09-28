@@ -27,7 +27,7 @@ describe Route do
     end
 
     context 'when http_method is given' do
-      let(:http_methods) { %i[get post patch put] }
+      let(:http_methods) { %i[post patch put] }
       let(:http_method)  { http_methods.sample }
       let(:attributes) do
         { path: path, content: content, http_method: http_method }

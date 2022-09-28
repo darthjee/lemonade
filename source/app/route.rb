@@ -7,7 +7,7 @@ class Route
   attr_reader :json
   expose :path
   expose :content
-  expose :http_method, type: :symbol, default: :get
+  expose :http_method, type: :symbol, default: :get, case: :snake
 
   def initialize(json = {})
     @json = json
