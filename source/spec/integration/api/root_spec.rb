@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-describe 'GET /', type: :controller do
+describe 'GET /my_path', type: :controller do
   let(:app) { Sinatra::Application }
 
-  before { get '/' }
+  before { get '/my_path' }
 
   it do
     expect(last_response).to be_successful

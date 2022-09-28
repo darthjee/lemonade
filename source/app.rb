@@ -16,4 +16,5 @@ require 'config'
 set :port, 80
 set :bind, '0.0.0.0'
 
+Application.config_file_path('config/routes.yml')
 Application.start
