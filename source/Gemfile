@@ -9,6 +9,10 @@ gem 'arstotzka', '1.6.2'
 gem 'sinatra',   '3.0.1'
 gem 'sinclair',  '1.8.0'
 
+group :development, :test do
+  gem 'simplecov',  '0.21.2'
+end
+
 group :development do
   gem 'rubocop',       '0.80.1'
   gem 'rubocop-rspec', '1.38.1'
