@@ -1,3 +1,13 @@
+require: rubocop-rspec
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/integration/**/*_spec.rb'
+
 Style/HashEachMethods:
   Enabled: true
 
