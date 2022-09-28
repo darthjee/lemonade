@@ -55,6 +55,9 @@ jobs:
       - run:
           name: Rubocop
           command: rubocop
+      - run:
+          name: Rubycritcs check
+          command: rubycritic.sh
   build-and-release:
     machine: true
     steps:
