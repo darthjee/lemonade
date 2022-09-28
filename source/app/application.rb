@@ -23,6 +23,13 @@ module Application
 
     def config_file
       return config_file_path if File.exists?(config_file_path)
+
+      folder = config_file_path.gsub(/\/[^\/]*$/, '')
+
+      if folder && !File.exists?(folder)
+        FileUtils.mkdir_p(folder)
+      end
+
       FileUtils.cp(SAMPLE_CONFIG, config_file_path)
       config_file_path
     end
