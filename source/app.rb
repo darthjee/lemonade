@@ -4,6 +4,7 @@ require 'sinatra'
 require 'yaml'
 require 'sinclair'
 require 'arstotzka'
+require 'fileutils'
 
 root_path = File.expand_path(__dir__)
 $LOAD_PATH.unshift([root_path, 'app'].join('/'))
