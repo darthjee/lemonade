@@ -10,4 +10,8 @@ describe 'GET /', type: :controller do
   it do
     expect(last_response).to be_successful
   end
+
+  it do
+    expect(last_response.body).to eq('I am up')
+  end
 end
