@@ -1,0 +1,30 @@
+version: '3'
+services:
+  #################### Base  ####################
+
+  base: &base
+    image: darthjee/lemonade_dev
+    volumes:
+      - ./source:/home/app/app
+
+  base_build:
+    <<: *base
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: echo done
+
+  #################### CONTAINERS ####################
+
+  lemonade_app:
+    <<: *base
+    container_name: lemonade_app
+    depends_on: [base_build]
+    ports:
+      - 127.0.0.1:3000:80
+
+  lemonade_tests:
+    <<: *base
+    container_name: lemonade_tests
+    command: /bin/bash
+    depends_on: [base_build]
