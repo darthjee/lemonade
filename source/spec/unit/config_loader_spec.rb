@@ -16,6 +16,32 @@ describe ConfigLoader do
       expect(loader.load['routes']).not_to be_empty
     end
 
+    context 'when LEMONADE_CONFIG env is set' do
+      let(:expected_config) do
+        JSON.parse(config_json)
+      end
+
+      let(:config_json) do
+        { 
+          routes: [{
+            path: "/path/#{SecureRandom.hex(10)}",
+            content: SecureRandom.hex(10)
+          }]
+        }.to_json
+      end
+
+      before { ENV['LEMONADE_CONFIG'] = config_json }
+      after { ENV['LEMONADE_CONFIG'] = nil }
+
+      it do
+        expect(loader.load).to be_a(Hash)
+      end
+
+      it do
+        expect(loader.load).to match(expected_config)
+      end
+    end
+
     context 'when the file does not exist' do
       let(:file_path) do
         "#{config_folder}/#{config_file}"
