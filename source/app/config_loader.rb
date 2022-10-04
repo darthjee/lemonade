@@ -25,6 +25,7 @@ class ConfigLoader
 
   def config_from_env
     return unless ENV['LEMONADE_CONFIG'].present?
+
     JSON.parse(ENV['LEMONADE_CONFIG'])
   end
 

@@ -22,7 +22,7 @@ describe ConfigLoader do
       end
 
       let(:config_json) do
-        { 
+        {
           routes: [{
             path: "/path/#{SecureRandom.hex(10)}",
             content: SecureRandom.hex(10)
@@ -31,6 +31,7 @@ describe ConfigLoader do
       end
 
       before { ENV['LEMONADE_CONFIG'] = config_json }
+
       after { ENV['LEMONADE_CONFIG'] = nil }
 
       it do
