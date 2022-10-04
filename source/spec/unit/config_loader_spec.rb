@@ -45,4 +45,3 @@ describe ConfigLoader do
     end
   end
 end
-
