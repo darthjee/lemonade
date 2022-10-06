@@ -27,8 +27,8 @@ describe Route, type: :controller do
     context 'when there was already another route' do
       let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
 
-      before do
-        described_class.new(path: path, content: old_content).apply
+      let!(:previous_route) do
+        described_class.new(path: path, content: old_content).tap(&:apply)
       end
 
       it 'rebuilds the same route' do
@@ -41,6 +41,12 @@ describe Route, type: :controller do
           .to change { get(path); last_response.body }
           .from(old_content)
           .to(content)
+      end
+
+      it 'disables previous route' do
+        expect { route.apply }
+          .to change(previous_route, :disabled?)
+          .from(nil).to(true)
       end
     end
   end

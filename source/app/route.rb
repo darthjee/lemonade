@@ -16,4 +16,12 @@ class Route
   def apply
     Endpoint.build(self)
   end
+
+  def disabled?
+    @disabled
+  end
+
+  def disable!
+    @disabled = true
+  end
 end
