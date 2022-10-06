@@ -103,6 +103,21 @@ describe Route, type: :controller do
       it { expect(route.same?(other)).to be_falsey }
     end
 
+    context 'when both paths have the same parameters' do
+      let(:path)             { "/route/:id/:some_id" }
+      let(:other_path)       { "/route/:uid/:some_key" }
+      let(:other_attributes) { attributes.merge(path: other_path) }
+
+      it { expect(route.same?(other)).to be_truthy }
+    end
+
+    context 'when the path has a parameter instead of constant' do
+      let(:other_path)       { "/route/:uid" }
+      let(:other_attributes) { attributes.merge(path: other_path) }
+
+      it { expect(route.same?(other)).to be_falsey }
+    end
+
     context 'when the difference is only the http_method' do
       let(:other_path)       { "/route/#{SecureRandom.hex(16)}" }
       let(:other_attributes) { attributes.merge(path: other_path) }

@@ -27,6 +27,14 @@ class Route
 
   def same?(other)
     return false unless other.is_a?(Route)
-    path == other.path && http_method == other.http_method
+    return false unless http_method == other.http_method
+    return true if path == other.path
+    normalized_path == other.normalized_path
+  end
+
+  protected
+
+  def normalized_path
+    @normalized_path ||= path.gsub(/:[^\/]*/, ':var')
   end
 end
