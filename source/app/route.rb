@@ -24,4 +24,9 @@ class Route
   def disable!
     @disabled = true
   end
+
+  def same?(other)
+    return false unless other.is_a?(Route)
+    path == other.path && http_method == other.http_method
+  end
 end

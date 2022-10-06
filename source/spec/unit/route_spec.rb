@@ -80,4 +80,34 @@ describe Route, type: :controller do
       end
     end
   end
+
+  fdescribe '#same?' do
+    let(:other) { described_class.new(other_attributes) }
+    let(:other_attributes) { attributes }
+
+    context 'when they have the same attributes' do
+      it { expect(route.same?(other)).to be_truthy }
+    end
+
+    context 'when the difference is only the content' do
+      let(:other_content)    { "Content: #{SecureRandom.hex(16)}" }
+      let(:other_attributes) { attributes.merge(content: other_content) }
+
+      it { expect(route.same?(other)).to be_truthy }
+    end
+
+    context 'when the difference is only the path' do
+      let(:other_path)       { "/route/#{SecureRandom.hex(16)}" }
+      let(:other_attributes) { attributes.merge(path: other_path) }
+
+      it { expect(route.same?(other)).to be_falsey }
+    end
+
+    context 'when the difference is only the http_method' do
+      let(:other_path)       { "/route/#{SecureRandom.hex(16)}" }
+      let(:other_attributes) { attributes.merge(path: other_path) }
+
+      it { expect(route.same?(other)).to be_falsey }
+    end
+  end
 end
