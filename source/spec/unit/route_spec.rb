@@ -81,7 +81,7 @@ describe Route, type: :controller do
     end
   end
 
-  fdescribe '#same?' do
+  describe '#same?' do
     let(:other) { described_class.new(other_attributes) }
     let(:other_attributes) { attributes }
 

@@ -21,12 +21,13 @@ class Application
   end
 
   def start
-    config.routes.each(&:apply)
+    routes.each(&:apply)
   end
 
   private
 
   delegate :config_file_path, to: :class
+  delegate :routes, to: :config
 
   def config
     @config ||= Config.load_file(config_file_path)
