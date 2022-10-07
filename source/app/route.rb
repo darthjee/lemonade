@@ -30,17 +30,15 @@ class Route
     @disabled = true
   end
 
+  def normalized_path
+    @normalized_path ||= path.gsub(/:[^\/]*/, ':var')
+  end
+
   def same?(other)
     return false if other === self
     return false unless other.is_a?(Route)
     return false unless http_method == other.http_method
     return true if path == other.path
     normalized_path == other.normalized_path
-  end
-
-  protected
-
-  def normalized_path
-    @normalized_path ||= path.gsub(/:[^\/]*/, ':var')
   end
 end

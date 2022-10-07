@@ -8,8 +8,12 @@ class Endpoint
 
   delegate :path, :content, :http_method, to: :route
 
-  def self.build(*args)
-    new(*args).build
+  def self.build(route)
+    endpoint_for(route).build
+  end
+
+  def self.endpoint_for(route)
+    Application.endpoints[route.normalized_path] = new(route)
   end
 
   def initialize(route)

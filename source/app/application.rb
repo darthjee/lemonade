@@ -17,7 +17,7 @@ class Application
       @instance = nil
     end
 
-    delegate :start, :enabled_routes, to: :instance
+    delegate :start, :enabled_routes, :endpoints, to: :instance
   end
 
   def start
@@ -26,6 +26,10 @@ class Application
 
   def enabled_routes
     @enabled_routes ||= []
+  end
+
+  def endpoints
+    @endpoints ||= {}
   end
 
   private
