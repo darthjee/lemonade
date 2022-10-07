@@ -4,12 +4,18 @@
 #
 # The routes are then sent to Sinatra for building
 class Endpoint
-  attr_reader :route
+  attr_accessor :route
 
   delegate :path, :content, :http_method, to: :route
 
   def self.build(route)
-    endpoint_for(route).build
+    endpoint = endpoint_for(route)
+    if endpoint.route == route
+      endpoint.build
+    else
+      endpoint.route.disable!
+      endpoint.route = route
+    end
   end
 
   def self.endpoint_for(route)
