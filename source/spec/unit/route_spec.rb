@@ -149,47 +149,47 @@ describe Route, type: :controller do
     let(:other_attributes) { attributes }
 
     context 'when they are the same instance' do
-      it { expect(route.same?(route)).to be_falsey }
+      it { expect(route).not_to be_same(route) }
     end
 
     context 'when they have the same attributes' do
-      it { expect(route.same?(other)).to be_truthy }
+      it { expect(route).to be_same(other) }
     end
 
     context 'when the difference is only the content' do
       let(:other_content)    { "Content: #{SecureRandom.hex(16)}" }
       let(:other_attributes) { attributes.merge(content: other_content) }
 
-      it { expect(route.same?(other)).to be_truthy }
+      it { expect(route).to be_same(other) }
     end
 
     context 'when the difference is only the path' do
       let(:other_path)       { "/route/#{SecureRandom.hex(16)}" }
       let(:other_attributes) { attributes.merge(path: other_path) }
 
-      it { expect(route.same?(other)).to be_falsey }
+      it { expect(route).not_to be_same(other) }
     end
 
     context 'when both paths have the same parameters' do
-      let(:path)             { "/route/:id/:some_id" }
-      let(:other_path)       { "/route/:uid/:some_key" }
+      let(:path)             { '/route/:id/:some_id' }
+      let(:other_path)       { '/route/:uid/:some_key' }
       let(:other_attributes) { attributes.merge(path: other_path) }
 
-      it { expect(route.same?(other)).to be_truthy }
+      it { expect(route).to be_same(other) }
     end
 
     context 'when the path has a parameter instead of constant' do
-      let(:other_path)       { "/route/:uid" }
+      let(:other_path)       { '/route/:uid' }
       let(:other_attributes) { attributes.merge(path: other_path) }
 
-      it { expect(route.same?(other)).to be_falsey }
+      it { expect(route).not_to be_same(other) }
     end
 
     context 'when the difference is only the http_method' do
       let(:other_path)       { "/route/#{SecureRandom.hex(16)}" }
       let(:other_attributes) { attributes.merge(path: other_path) }
 
-      it { expect(route.same?(other)).to be_falsey }
+      it { expect(route).not_to be_same(other) }
     end
   end
 end
