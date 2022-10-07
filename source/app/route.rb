@@ -28,17 +28,8 @@ class Route
   def normalized_endpoint
     "#{http_method}:#{normalized_path}"
   end
-
-  def same?(other)
-    return false if other === self
-    return false unless other.is_a?(Route)
-    return false unless http_method == other.http_method
-    return true if path == other.path
-
-    normalized_path == other.normalized_path
-  end
-
-  protected
+  
+  private
 
   def normalized_path
     @normalized_path ||= path.gsub(%r{:[^/]*}, ':var')
