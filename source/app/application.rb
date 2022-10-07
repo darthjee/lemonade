@@ -17,15 +17,11 @@ class Application
       @instance = nil
     end
 
-    delegate :start, :enabled_routes, :endpoints, to: :instance
+    delegate :start, :endpoints, to: :instance
   end
 
   def start
     routes.each(&:apply)
-  end
-
-  def enabled_routes
-    @enabled_routes ||= []
   end
 
   def endpoints

@@ -19,7 +19,7 @@ class Endpoint
   end
 
   def self.endpoint_for(route)
-    Application.endpoints[route.normalized_path] = new(route)
+    Application.endpoints[route.normalized_path] ||= new(route)
   end
 
   def initialize(route)
