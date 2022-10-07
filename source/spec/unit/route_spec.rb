@@ -85,6 +85,10 @@ describe Route, type: :controller do
     let(:other) { described_class.new(other_attributes) }
     let(:other_attributes) { attributes }
 
+    context 'when they are the same instance' do
+      it { expect(route.same?(route)).to be_falsey }
+    end
+
     context 'when they have the same attributes' do
       it { expect(route.same?(other)).to be_truthy }
     end

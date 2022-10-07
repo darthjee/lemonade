@@ -26,6 +26,7 @@ class Route
   end
 
   def same?(other)
+    return false if other === self
     return false unless other.is_a?(Route)
     return false unless http_method == other.http_method
     return true if path == other.path
