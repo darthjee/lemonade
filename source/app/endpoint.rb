@@ -27,9 +27,9 @@ class Endpoint
   end
 
   def build
-    content = self.content
+    endpoint = self
     Sinatra::Delegator.target.public_send(http_method, path) do
-      content
+      endpoint.content
     end
   end
 end
