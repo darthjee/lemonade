@@ -86,6 +86,32 @@ describe Route, type: :controller do
           .from(nil).to(true)
       end
     end
+
+    context 'when there was already another route for the same path and another method' do
+      let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
+
+      let!(:previous_route) do
+        described_class.new(path: path, content: old_content, http_method: :post).tap(&:apply)
+      end
+
+      it 'builds the new route' do
+        expect { route.apply }
+          .to change { get(path); last_response.status }
+          .from(404)
+          .to(200)
+      end
+
+      it 'builds the route with new content' do
+        expect { route.apply }
+          .to change { get(path); last_response.body }
+          .to(content)
+      end
+
+      it 'does not disable previous route' do
+        expect { route.apply }
+          .not_to change(previous_route, :disabled?)
+      end
+    end
   end
 
   describe '#path' do

@@ -15,6 +15,7 @@ class Endpoint
     else
       endpoint.route.disable!
       endpoint.route = route
+      endpoint.build
     end
   end
 
