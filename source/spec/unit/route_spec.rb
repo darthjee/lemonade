@@ -24,7 +24,44 @@ describe Route, type: :controller do
         .to(content)
     end
 
-    context 'when there was already another route' do
+    context 'when there was already another route for other endpoint' do
+      let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
+      let(:old_path)    { "/route/#{SecureRandom.hex(16)}" }
+
+      let!(:previous_route) do
+        described_class.new(path: old_path, content: old_content).tap(&:apply)
+      end
+
+      it 'builds a new route' do
+        expect { route.apply }
+          .to change { get(path); last_response.status }
+          .from(404)
+          .to(200)
+      end
+
+      it 'does not remove the old route' do
+        expect { route.apply }
+          .not_to change { get(old_path); last_response.status }
+      end
+
+      it 'builds the route with new content' do
+        expect { route.apply }
+          .to change { get(path); last_response.body }
+          .to(content)
+      end
+
+      it 'does not change old route content' do
+        expect { route.apply }
+          .not_to change { get(old_path); last_response.body }
+      end
+
+      it 'does not disable previous route' do
+        expect { route.apply }
+          .not_to change(previous_route, :disabled?)
+      end
+    end
+
+    context 'when there was already another route for the same endpoint' do
       let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
 
       let!(:previous_route) do
