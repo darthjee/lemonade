@@ -14,6 +14,11 @@ class Route
   end
 
   def apply
+    Application.enabled_routes.select do |route|
+      route.same?(self)
+    end.each(&:disable!)
+    Application.enabled_routes << self
+
     Endpoint.build(self)
   end
 
