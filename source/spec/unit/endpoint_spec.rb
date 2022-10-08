@@ -5,16 +5,15 @@ require 'spec_helper'
 describe Endpoint, type: :controller do
   let(:app) { Sinatra::Application }
 
-  let(:path)    { "/route/#{SecureRandom.hex(16)}" }
-  let(:content) { "Content: #{SecureRandom.hex(16)}" }
-  let(:route)   { Route.new(path: path, content: content) }
+  let(:path)    { route.path }
+  let(:content) { route.content }
+  let(:route)   { build(:route) }
 
   describe '.build' do
     it 'creates endpoint' do
       expect { described_class.build(route) }
         .to change { get(path); last_response.status }
-        .from(404)
-        .to(200)
+        .from(404).to(200)
     end
 
     it 'creates endpoint with content' do
