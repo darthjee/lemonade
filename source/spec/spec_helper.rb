@@ -4,9 +4,10 @@ require 'simplecov'
 SimpleCov.start
 
 require 'pry-nav'
+require_relative '../app'
 require 'shoulda-matchers'
 require 'rack/test'
-require_relative '../app'
+require 'factory_bot'
 
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
