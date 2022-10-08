@@ -9,8 +9,7 @@ class Endpoint
   delegate :path, :content, :http_method, to: :route
 
   def self.build(route)
-    Application.endpoints[route.normalized_endpoint]&.update(route) ||
-      new(route).build
+    new(route).tap(&:build)
   end
 
   def initialize(route)
@@ -27,6 +26,5 @@ class Endpoint
     Sinatra::Delegator.target.public_send(http_method, path) do
       endpoint.content
     end
-    Application.endpoints[route.normalized_endpoint] ||= self
   end
 end

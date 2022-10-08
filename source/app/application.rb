@@ -17,7 +17,7 @@ class Application
       @instance = nil
     end
 
-    delegate :start, :endpoints, to: :instance
+    delegate :start, :endpoints, :append, to: :instance
   end
 
   def start
@@ -26,6 +26,11 @@ class Application
 
   def endpoints
     @endpoints ||= {}
+  end
+
+  def append(route)
+    endpoints[route.normalized_endpoint]&.update(route) ||
+    endpoints[route.normalized_endpoint] = Endpoint.build(route)
   end
 
   private

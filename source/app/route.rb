@@ -14,7 +14,7 @@ class Route
   end
 
   def apply
-    Endpoint.build(self)
+    Application.append(self)
   end
 
   def disabled?
