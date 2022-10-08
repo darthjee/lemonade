@@ -15,6 +15,7 @@ group :development, :test do
   gem 'reek'
   gem 'rubycritic'
   gem 'simplecov'
+  gem 'factory_bot'
 end
 
 group :development do
