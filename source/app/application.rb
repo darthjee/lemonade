@@ -30,7 +30,7 @@ class Application
 
   def append(route)
     endpoints[route.normalized_endpoint]&.update(route) ||
-    endpoints[route.normalized_endpoint] = Endpoint.build(route)
+      endpoints[route.normalized_endpoint] = Endpoint.build(route)
   end
 
   private

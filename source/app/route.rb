@@ -28,7 +28,7 @@ class Route
   def normalized_endpoint
     "#{http_method}:#{normalized_path}"
   end
-  
+
   private
 
   def normalized_path

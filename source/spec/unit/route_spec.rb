@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# rubocop:disable Style/Semicolon
 describe Route, type: :controller do
   subject(:route) { described_class.new(attributes) }
 
@@ -41,7 +42,7 @@ describe Route, type: :controller do
 
       it 'does not remove the old route' do
         expect { route.apply }
-          .not_to change { get(old_path); last_response.status }
+          .not_to(change { get(old_path); last_response.status })
       end
 
       it 'builds the route with new content' do
@@ -52,7 +53,7 @@ describe Route, type: :controller do
 
       it 'does not change old route content' do
         expect { route.apply }
-          .not_to change { get(old_path); last_response.body }
+          .not_to(change { get(old_path); last_response.body })
       end
 
       it 'does not disable previous route' do
@@ -70,7 +71,7 @@ describe Route, type: :controller do
 
       it 'rebuilds the same route' do
         expect { route.apply }
-          .not_to change { get(path); last_response.status }
+          .not_to(change { get(path); last_response.status })
       end
 
       it 'builds the route with new content' do
@@ -87,12 +88,16 @@ describe Route, type: :controller do
       end
     end
 
-    context 'when there was already another route for the same path and another method' do
+    context 'when there was already a route for the path and another method' do
       let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
 
-      let!(:previous_route) do
-        described_class.new(path: path, content: old_content, http_method: :post).tap(&:apply)
+      let(:previous_route) do
+        described_class.new(
+          path: path, content: old_content, http_method: :post
+        )
       end
+
+      before { previous_route.apply }
 
       it 'builds the new route' do
         expect { route.apply }
@@ -144,3 +149,4 @@ describe Route, type: :controller do
     end
   end
 end
+# rubocop:enable Style/Semicolon
