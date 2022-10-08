@@ -15,8 +15,7 @@ describe Route, type: :controller do
     it 'builds the route' do
       expect { route.apply }
         .to change { get(path); last_response.status }
-        .from(404)
-        .to(200)
+        .from(404).to(200)
     end
 
     it 'builds the route with content' do
@@ -29,15 +28,16 @@ describe Route, type: :controller do
       let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
       let(:old_path)    { "/route/#{SecureRandom.hex(16)}" }
 
-      let!(:previous_route) do
-        described_class.new(path: old_path, content: old_content).tap(&:apply)
+      let(:previous_route) do
+        build(:route, path: old_path, content: old_content)
       end
+
+      before { previous_route.apply }
 
       it 'builds a new route' do
         expect { route.apply }
           .to change { get(path); last_response.status }
-          .from(404)
-          .to(200)
+          .from(404).to(200)
       end
 
       it 'does not remove the old route' do
@@ -65,9 +65,9 @@ describe Route, type: :controller do
     context 'when there was already another route for the same endpoint' do
       let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
 
-      let!(:previous_route) do
-        described_class.new(path: path, content: old_content).tap(&:apply)
-      end
+      let(:previous_route) { build(:route, path: path, content: old_content) }
+
+      before { previous_route.apply }
 
       it 'rebuilds the same route' do
         expect { route.apply }
@@ -92,9 +92,7 @@ describe Route, type: :controller do
       let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
 
       let(:previous_route) do
-        described_class.new(
-          path: path, content: old_content, http_method: :post
-        )
+        build(:route, path: path, content: old_content, http_method: :post)
       end
 
       before { previous_route.apply }
@@ -102,8 +100,7 @@ describe Route, type: :controller do
       it 'builds the new route' do
         expect { route.apply }
           .to change { get(path); last_response.status }
-          .from(404)
-          .to(200)
+          .from(404).to(200)
       end
 
       it 'builds the route with new content' do
