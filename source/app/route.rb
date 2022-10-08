@@ -14,6 +14,24 @@ class Route
   end
 
   def apply
-    Endpoint.build(self)
+    Application.append(self)
+  end
+
+  def disabled?
+    @disabled
+  end
+
+  def disable!
+    @disabled = true
+  end
+
+  def normalized_endpoint
+    "#{http_method}:#{normalized_path}"
+  end
+
+  private
+
+  def normalized_path
+    @normalized_path ||= path.gsub(%r{:[^/]*}, ':var')
   end
 end

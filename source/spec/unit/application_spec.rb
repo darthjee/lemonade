@@ -4,7 +4,10 @@ require 'spec_helper'
 
 # rubocop:disable Style/Semicolon
 describe Application, type: :controller do
-  before { described_class.config_file_path(config_path) }
+  before do
+    described_class.reset
+    described_class.config_file_path(config_path)
+  end
 
   describe '.start' do
     context 'when the config file exists' do
