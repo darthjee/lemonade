@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 
-# rubocop:disable Style/Semicolon
 describe Route, type: :controller do
   subject(:route) { described_class.new(attributes) }
 
@@ -15,8 +14,7 @@ describe Route, type: :controller do
     it 'builds the route' do
       expect { route.apply }
         .to change { get(path); last_response.status }
-        .from(404)
-        .to(200)
+        .from(404).to(200)
     end
 
     it 'builds the route with content' do
@@ -26,18 +24,15 @@ describe Route, type: :controller do
     end
 
     context 'when there was already another route for other endpoint' do
-      let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
-      let(:old_path)    { "/route/#{SecureRandom.hex(16)}" }
+      let(:previous_route) { build(:route) }
+      let(:old_path)       { previous_route.path }
 
-      let!(:previous_route) do
-        described_class.new(path: old_path, content: old_content).tap(&:apply)
-      end
+      before { previous_route.apply }
 
       it 'builds a new route' do
         expect { route.apply }
           .to change { get(path); last_response.status }
-          .from(404)
-          .to(200)
+          .from(404).to(200)
       end
 
       it 'does not remove the old route' do
@@ -63,11 +58,11 @@ describe Route, type: :controller do
     end
 
     context 'when there was already another route for the same endpoint' do
-      let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
+      let(:old_content) { previous_route.content }
 
-      let!(:previous_route) do
-        described_class.new(path: path, content: old_content).tap(&:apply)
-      end
+      let(:previous_route) { build(:route, path: path) }
+
+      before { previous_route.apply }
 
       it 'rebuilds the same route' do
         expect { route.apply }
@@ -92,9 +87,7 @@ describe Route, type: :controller do
       let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
 
       let(:previous_route) do
-        described_class.new(
-          path: path, content: old_content, http_method: :post
-        )
+        build(:route, path: path, content: old_content, http_method: :post)
       end
 
       before { previous_route.apply }
@@ -102,8 +95,7 @@ describe Route, type: :controller do
       it 'builds the new route' do
         expect { route.apply }
           .to change { get(path); last_response.status }
-          .from(404)
-          .to(200)
+          .from(404).to(200)
       end
 
       it 'builds the route with new content' do
@@ -149,4 +141,3 @@ describe Route, type: :controller do
     end
   end
 end
-# rubocop:enable Style/Semicolon
