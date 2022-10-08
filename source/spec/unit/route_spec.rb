@@ -24,12 +24,8 @@ describe Route, type: :controller do
     end
 
     context 'when there was already another route for other endpoint' do
-      let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
-      let(:old_path)    { "/route/#{SecureRandom.hex(16)}" }
-
-      let(:previous_route) do
-        build(:route, path: old_path, content: old_content)
-      end
+      let(:previous_route) { build(:route) }
+      let(:old_path)       { previous_route.path }
 
       before { previous_route.apply }
 
@@ -62,9 +58,9 @@ describe Route, type: :controller do
     end
 
     context 'when there was already another route for the same endpoint' do
-      let(:old_content) { "Old Content: #{SecureRandom.hex(16)}" }
+      let(:old_content) { previous_route.content }
 
-      let(:previous_route) { build(:route, path: path, content: old_content) }
+      let(:previous_route) { build(:route, path: path) }
 
       before { previous_route.apply }
 
