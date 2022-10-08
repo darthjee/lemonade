@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 
-# rubocop:disable Style/Semicolon
 describe Application, type: :controller do
   before do
     described_class.reset
@@ -51,4 +50,3 @@ describe Application, type: :controller do
     end
   end
 end
-# rubocop:enable Style/Semicolon

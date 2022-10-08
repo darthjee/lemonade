@@ -2,7 +2,6 @@
 
 require 'spec_helper'
 
-# rubocop:disable Style/Semicolon
 describe Route, type: :controller do
   subject(:route) { described_class.new(attributes) }
 
@@ -146,4 +145,3 @@ describe Route, type: :controller do
     end
   end
 end
-# rubocop:enable Style/Semicolon

@@ -16,3 +16,9 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Style/Semicolon:
+  Exclude:
+    - spec/unit/route_spec.rb
+    - spec/unit/application_spec.rb
+    - spec/unit/endpoint_spec.rb
