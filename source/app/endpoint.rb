@@ -6,7 +6,7 @@
 class Endpoint
   attr_accessor :route
 
-  delegate :path, :content, :http_method, to: :route
+  delegate :path, :content, :http_method, :normalized_endpoint, to: :route
 
   def self.build(route)
     new(route).tap(&:build)
@@ -26,9 +26,5 @@ class Endpoint
     Sinatra::Delegator.target.public_send(http_method, path) do
       endpoint.content
     end
-  end
-
-  def normalized
-    route.normalized_endpoint
   end
 end

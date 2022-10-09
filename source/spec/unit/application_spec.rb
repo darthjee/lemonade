@@ -32,7 +32,7 @@ describe Application, type: :controller do
 
       it 'uses normalized endpoint as key' do
         described_class.endpoints.each do |key, endpoint|
-          expect(endpoint.normalized).to eq(key)
+          expect(endpoint.normalized_endpoint).to eq(key)
         end
       end
     end
