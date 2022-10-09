@@ -27,4 +27,8 @@ class Endpoint
       endpoint.content
     end
   end
+
+  def normalized
+    route.normalized_endpoint
+  end
 end

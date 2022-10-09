@@ -1,0 +1,6 @@
+routes:
+  - path: '/a_normal_path'
+    content: 'test_content'
+  - path: '/update/:some_id'
+    content: 'update content'
+    http_method: 'patch'
