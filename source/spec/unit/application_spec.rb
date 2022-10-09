@@ -19,15 +19,19 @@ describe Application, type: :controller do
       end
     end
 
-    context 'when application has not been started' do
+    context 'when application has been started' do
+      let(:expected_endpoints) do
+        {
+          'get:/a_normal_path' => instance_of(Endpoint),
+          'patch:/update/:var' => instance_of(Endpoint)
+        }
+      end
+
       before { described_class.start }
 
       it 'maps endpoints to a normalized path' do
         expect(described_class.endpoints)
-          .to match({
-            'get:/a_normal_path' => instance_of(Endpoint),
-            'patch:/update/:var' => instance_of(Endpoint),
-          })
+          .to match(expected_endpoints)
       end
 
       it 'uses normalized endpoint as key' do
