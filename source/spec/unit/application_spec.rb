@@ -8,6 +8,40 @@ describe Application, type: :controller do
     described_class.config_file_path(config_path)
   end
 
+  describe '.endpoints' do
+    let(:config_path) do
+      fixture_file_path('test_normalization.yml')
+    end
+
+    context 'when application has not been started' do
+      it do
+        expect(described_class.endpoints).to eq({})
+      end
+    end
+
+    context 'when application has been started' do
+      let(:expected_endpoints) do
+        {
+          'get:/a_normal_path' => instance_of(Endpoint),
+          'patch:/update/:var' => instance_of(Endpoint)
+        }
+      end
+
+      before { described_class.start }
+
+      it 'maps endpoints to a normalized path' do
+        expect(described_class.endpoints)
+          .to match(expected_endpoints)
+      end
+
+      it 'uses normalized endpoint as key' do
+        described_class.endpoints.each do |key, endpoint|
+          expect(endpoint.normalized_endpoint).to eq(key)
+        end
+      end
+    end
+  end
+
   describe '.start' do
     context 'when the config file exists' do
       let(:app) { Sinatra::Application }
@@ -24,7 +58,7 @@ describe Application, type: :controller do
       end
     end
 
-    context 'when the neither file nor folder do not exist' do
+    context 'when neither file nor folder do exist' do
       let(:config_file)   { "#{SecureRandom.hex(10)}.yml" }
       let(:config_folder) { "/tmp/#{SecureRandom.hex(10)}" }
 

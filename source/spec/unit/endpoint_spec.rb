@@ -22,4 +22,28 @@ describe Endpoint, type: :controller do
         .to(content)
     end
   end
+
+  describe '#update' do
+    subject(:endpoint) { create(:endpoint) }
+
+    let(:old_route) { endpoint.route }
+    let(:route) { create(:route) }
+
+    it do
+      expect { endpoint.update(route) }
+        .to change(old_route, :disabled?)
+        .from(nil).to(true)
+    end
+
+    it do
+      expect { endpoint.update(route) }
+        .not_to change(route, :disabled?)
+    end
+
+    it do
+      expect { endpoint.update(route) }
+        .to change(endpoint, :route)
+        .from(old_route).to(route)
+    end
+  end
 end

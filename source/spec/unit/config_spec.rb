@@ -12,11 +12,11 @@ describe Config do
       expect(config).to be_a(described_class)
     end
 
-    it do
+    it 'loads routes' do
       expect(config.routes).not_to be_empty
     end
 
-    it do
+    it 'loads all the routes as routes' do
       expect(config.routes).to all(be_a(Route))
     end
   end
