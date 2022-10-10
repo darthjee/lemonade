@@ -70,6 +70,12 @@ describe Application, type: :controller do
           .from(404)
           .to(200)
       end
+
+      it 'changes the mode' do
+        expect { described_class.start }
+          .to change(described_class, :mode)
+          .from(described_class::MODE_READING).to(described_class::MODE_READY)
+      end
     end
 
     context 'when neither file nor folder do exist' do

@@ -4,6 +4,8 @@
 #
 # This loads config file into memory and creates the routes
 class Application
+  MODE_READING='reading'
+  MODE_READY='ready'
   class << self
     def config_file_path(path = @config_file_path)
       @config_file_path = path
@@ -17,11 +19,15 @@ class Application
       @instance = nil
     end
 
-    delegate :start, :endpoints, :append, to: :instance
+    delegate :start, :endpoints, :append, :mode, to: :instance
   end
 
   def start
     routes.each(&:apply)
+  end
+
+  def mode
+    @mode ||= MODE_READING 
   end
 
   def endpoints
