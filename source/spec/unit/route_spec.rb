@@ -58,12 +58,18 @@ describe Route, type: :controller do
         expect { route.apply }
           .not_to change(previous_route, :disabled?)
       end
+
+      it 'creates a new endpoint' do
+        expect { route.apply }
+          .to change { Application.endpoints.keys }
+          .by([route.normalized_endpoint])
+      end
     end
 
     context 'when there was already another route for the same endpoint' do
       let(:old_content) { previous_route.content }
-
       let(:previous_route) { build(:route, path: path) }
+      let(:endpoint) { Application.endpoints[route.normalized_endpoint] }
 
       before { previous_route.apply }
 
@@ -83,6 +89,17 @@ describe Route, type: :controller do
         expect { route.apply }
           .to change(previous_route, :disabled?)
           .from(nil).to(true)
+      end
+
+      it 'does not create a new endpoint' do
+        expect { route.apply }
+          .not_to change { Application.endpoints.keys }
+      end
+
+      it 'changes route inside the endpoint' do
+        expect { route.apply }
+          .to change(endpoint, :route)
+          .from(previous_route).to(route)
       end
     end
 
@@ -110,6 +127,12 @@ describe Route, type: :controller do
       it 'does not disable previous route' do
         expect { route.apply }
           .not_to change(previous_route, :disabled?)
+      end
+
+      it 'creates a new endpoint' do
+        expect { route.apply }
+          .to change { Application.endpoints.keys }
+          .by([route.normalized_endpoint])
       end
     end
   end
