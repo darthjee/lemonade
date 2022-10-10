@@ -57,7 +57,7 @@ describe Application, type: :controller do
       end
 
       before do
-        File.open(config_path, "w") do |file|
+        File.open(config_path, 'w') do |file|
           file.write(config_content)
         end
       end

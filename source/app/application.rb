@@ -4,8 +4,8 @@
 #
 # This loads config file into memory and creates the routes
 class Application
-  MODE_READING='reading'
-  MODE_READY='ready'
+  MODE_READING = 'reading'
+  MODE_READY = 'ready'
   class << self
     def config_file_path(path = @config_file_path)
       @config_file_path = path
@@ -28,7 +28,7 @@ class Application
   end
 
   def mode
-    @mode ||= MODE_READING 
+    @mode ||= MODE_READING
   end
 
   def endpoints
