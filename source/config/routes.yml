@@ -1,3 +1,0 @@
-routes:
-  - path: '/my_path'
-    content: 'I am up'
