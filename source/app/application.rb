@@ -24,6 +24,7 @@ class Application
 
   def start
     routes.each(&:apply)
+    @mode = MODE_READY
   end
 
   def mode
