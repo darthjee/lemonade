@@ -4,7 +4,7 @@
 #
 # The routes are then sent to Sinatra for building
 class Endpoint
-  attr_accessor :route
+  attr_reader :route
 
   delegate :path, :content, :http_method, :normalized_endpoint, to: :route
 
