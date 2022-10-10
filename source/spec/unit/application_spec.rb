@@ -46,9 +46,20 @@ describe Application, type: :controller do
     context 'when the config file exists' do
       let(:app) { Sinatra::Application }
       let(:path) { '/test_path' }
-      let(:config_path) do
-        fixture_file_path('test_application_routes.yml')
+      let(:sample_config) do
+        load_fixture_file('test_application_routes.yml')
       end
+      let(:config_path) do
+        "/tmp/#{SecureRandom.hex(16)}_routes.yml"
+      end
+
+      before do
+        File.open(config_path, "w") do |file|
+          file.write(sample_config)
+        end
+      end
+
+      after { FileUtils.rm(config_path) }
 
       it 'creates endpoints' do
         expect { described_class.start }
