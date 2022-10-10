@@ -93,7 +93,7 @@ describe Route, type: :controller do
 
       it 'does not create a new endpoint' do
         expect { route.apply }
-          .not_to change { Application.endpoints.keys }
+          .not_to(change { Application.endpoints.keys })
       end
 
       it 'changes route inside the endpoint' do
@@ -180,8 +180,8 @@ describe Route, type: :controller do
     end
 
     context 'when the path has variables' do
-      let(:path) { "/route/users/:user_id/documents/:id" }
-      let(:expected_path) { "/route/users/:var/documents/:var" }
+      let(:path) { '/route/users/:user_id/documents/:id' }
+      let(:expected_path) { '/route/users/:var/documents/:var' }
 
       it 'joins http_method and path' do
         expect(route.normalized_endpoint)

@@ -25,6 +25,7 @@ describe Endpoint, type: :controller do
 
   describe '#update' do
     subject(:endpoint) { create(:endpoint) }
+
     let(:old_route) { endpoint.route }
     let(:route) { create(:route) }
 
