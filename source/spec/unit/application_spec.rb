@@ -45,9 +45,12 @@ describe Application, type: :controller do
   describe '.start' do
     context 'when the config file exists' do
       let(:app) { Sinatra::Application }
-      let(:path) { '/test_path' }
+      let(:path) { "/test_path/#{SecureRandom.hex(16)}" }
       let(:sample_config) do
         load_fixture_file('test_application_routes.yml')
+      end
+      let(:config_content) do
+        sample_config.gsub('{random_path}', path)
       end
       let(:config_path) do
         "/tmp/#{SecureRandom.hex(16)}_routes.yml"
@@ -55,7 +58,7 @@ describe Application, type: :controller do
 
       before do
         File.open(config_path, "w") do |file|
-          file.write(sample_config)
+          file.write(config_content)
         end
       end
 
