@@ -1,3 +1,4 @@
 **/*.swp
-coverage/
-rubycritic/
+source/coverage/
+source/rubycritic/
+source/config/routes.yml
