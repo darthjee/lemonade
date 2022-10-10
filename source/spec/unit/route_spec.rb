@@ -5,10 +5,13 @@ require 'spec_helper'
 describe Route, type: :controller do
   subject(:route) { described_class.new(attributes) }
 
-  let(:app)        { Sinatra::Application }
-  let(:path)       { "/route/#{SecureRandom.hex(16)}" }
-  let(:content)    { "Content: #{SecureRandom.hex(16)}" }
-  let(:attributes) { { path: path, content: content } }
+  let(:app)         { Sinatra::Application }
+  let(:path)        { "/route/#{SecureRandom.hex(16)}" }
+  let(:content)     { "Content: #{SecureRandom.hex(16)}" }
+  let(:http_method) { :get }
+  let(:attributes) do
+    { path: path, content: content, http_method: http_method }
+  end
 
   describe '#apply' do
     it 'builds the route' do
@@ -137,6 +140,29 @@ describe Route, type: :controller do
 
       it do
         expect(route.http_method).to eq(http_method)
+      end
+    end
+  end
+
+  describe '#normalized_endpoint' do
+    context 'when the path has no variables' do
+      let(:http_methods) { %i[get post patch put delete] }
+      let(:http_method) { http_methods.sample }
+      let(:path) { "/route/#{SecureRandom.hex(32)}" }
+
+      it 'joins http_method and path' do
+        expect(route.normalized_endpoint)
+          .to eq("#{http_method}:#{path}")
+      end
+    end
+
+    context 'when the path has variables' do
+      let(:path) { "/route/users/:user_id/documents/:id" }
+      let(:expected_path) { "/route/users/:var/documents/:var" }
+
+      it 'joins http_method and path' do
+        expect(route.normalized_endpoint)
+          .to eq("#{http_method}:#{expected_path}")
       end
     end
   end
