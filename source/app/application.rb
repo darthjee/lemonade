@@ -51,9 +51,10 @@ class Application
   end
 
   def save_file
-    return if File.exists?(config_file_path)
+    return if File.exist?(config_file_path)
+
     create_config_folder
-    File.open(config_file_path, "w") do |file|
+    File.open(config_file_path, 'w') do |file|
       file.write(config.json.to_yaml)
     end
   end

@@ -31,6 +31,7 @@ class ConfigLoader
 
   def config_file_path
     return path if File.exist?(path)
+
     SAMPLE_CONFIG
   end
 end
