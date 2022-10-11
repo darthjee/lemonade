@@ -25,6 +25,10 @@ class Application
   def start
     routes.each(&:apply)
     @mode = MODE_READY
+    create_config_folder
+    File.open(config_file_path, "w") do |file|
+      file.write(config.json.to_yaml)
+    end
   end
 
   def mode
@@ -47,5 +51,16 @@ class Application
 
   def config
     @config ||= Config.load_file(config_file_path)
+  end
+
+  def create_config_folder
+    return unless config_folder
+    return if File.exist?(config_folder)
+
+    FileUtils.mkdir_p(config_folder)
+  end
+
+  def config_folder
+    @config_folder ||= config_file_path.gsub(%r{/[^/]*$}, '')
   end
 end
