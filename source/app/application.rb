@@ -4,6 +4,8 @@
 #
 # This loads config file into memory and creates the routes
 class Application
+  MODE_READING = 'reading'
+  MODE_READY = 'ready'
   class << self
     def config_file_path(path = @config_file_path)
       @config_file_path = path
@@ -17,11 +19,17 @@ class Application
       @instance = nil
     end
 
-    delegate :start, :endpoints, :append, to: :instance
+    delegate :start, :endpoints, :append, :mode, to: :instance
   end
 
   def start
     routes.each(&:apply)
+    @mode = MODE_READY
+    save_file
+  end
+
+  def mode
+    @mode ||= MODE_READING
   end
 
   def endpoints
@@ -40,5 +48,25 @@ class Application
 
   def config
     @config ||= Config.load_file(config_file_path)
+  end
+
+  def save_file
+    return if File.exist?(config_file_path)
+
+    create_config_folder
+    File.open(config_file_path, 'w') do |file|
+      file.write(config.json.to_yaml)
+    end
+  end
+
+  def create_config_folder
+    return unless config_folder
+    return if File.exist?(config_folder)
+
+    FileUtils.mkdir_p(config_folder)
+  end
+
+  def config_folder
+    @config_folder ||= config_file_path.gsub(%r{/[^/]*$}, '')
   end
 end
