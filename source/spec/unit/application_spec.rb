@@ -43,8 +43,9 @@ describe Application, type: :controller do
   end
 
   describe '.start' do
+    let(:app) { Sinatra::Application }
+
     context 'when the config file exists' do
-      let(:app) { Sinatra::Application }
       let(:path) { "/test_path/#{SecureRandom.hex(16)}" }
       let(:sample_config) do
         load_fixture_file('test_application_routes.yml')
@@ -88,6 +89,11 @@ describe Application, type: :controller do
 
       after { FileUtils.rm_rf(config_folder) }
 
+      it 'loads the config file' do
+        expect { described_class.start }
+          .to change(described_class, :endpoints)
+      end
+
       it 'creates a config file' do
         expect { described_class.start }
           .to change { Dir[config_path] }
@@ -96,6 +102,56 @@ describe Application, type: :controller do
       end
 
       it 'creates a config folder' do
+        expect { described_class.start }
+          .to change { Dir[config_folder] }
+          .from([])
+          .to([config_folder])
+      end
+    end
+
+    context 'when the file does not exists but LEMONADE_CONFIG is set' do
+      let(:config_file)   { "#{SecureRandom.hex(10)}.yml" }
+      let(:config_folder) { "/tmp/#{SecureRandom.hex(10)}" }
+      let(:path)          { "/path/#{SecureRandom.hex(10)}" }
+
+      let(:config_path) do
+        "#{config_folder}/#{config_file}"
+      end
+
+      let(:config_json) do
+        {
+          routes: [{
+            path: path,
+            content: SecureRandom.hex(10)
+          }]
+        }.to_json
+      end
+
+      before { ENV['LEMONADE_CONFIG'] = config_json }
+
+      #after { FileUtils.rm_rf(config_folder) }
+      after { ENV['LEMONADE_CONFIG'] = nil }
+
+      it 'creates endpoints' do
+        expect { described_class.start }
+          .to change { get(path); last_response.status }
+          .from(404)
+          .to(200)
+      end
+
+      it 'loads the config file' do
+        expect { described_class.start }
+          .to change(described_class, :endpoints)
+      end
+
+      xit 'creates a config file' do
+        expect { described_class.start }
+          .to change { Dir[config_path] }
+          .from([])
+          .to([config_path])
+      end
+
+      xit 'creates a config folder' do
         expect { described_class.start }
           .to change { Dir[config_folder] }
           .from([])
