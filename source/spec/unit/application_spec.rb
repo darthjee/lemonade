@@ -129,8 +129,10 @@ describe Application, type: :controller do
 
       before { ENV['LEMONADE_CONFIG'] = config_json }
 
-      #after { FileUtils.rm_rf(config_folder) }
-      after { ENV['LEMONADE_CONFIG'] = nil }
+      after do
+        FileUtils.rm_rf(config_folder)
+        ENV['LEMONADE_CONFIG'] = nil
+      end
 
       it 'creates endpoints' do
         expect { described_class.start }
@@ -144,14 +146,14 @@ describe Application, type: :controller do
           .to change(described_class, :endpoints)
       end
 
-      xit 'creates a config file' do
+      it 'creates a config file' do
         expect { described_class.start }
           .to change { Dir[config_path] }
           .from([])
           .to([config_path])
       end
 
-      xit 'creates a config folder' do
+      it 'creates a config folder' do
         expect { described_class.start }
           .to change { Dir[config_folder] }
           .from([])
